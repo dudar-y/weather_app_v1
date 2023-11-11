@@ -1,0 +1,37 @@
+@import '../../styles/utils/variables';
+
+.set {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: $defoultBackgroundColor;
+  border-bottom-left-radius: $defoultBorderRadius;
+  border-top-left-radius: $defoultBorderRadius;
+  // box-shadow: 0px 5px 15px 5px rgba(255,255,255, 0.2);
+
+  transition: background-color $defoultTransitionDuration;
+
+  &--cross {
+    background-color: #9d9c9a;
+  }
+
+  &__location {
+    font-size: 33px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

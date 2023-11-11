@@ -1,0 +1,46 @@
+@import '../../styles/utils/variables';
+
+.day {
+  padding: 5px;
+
+  background-color: $defoultBackgroundColor;
+  border-radius: $defoultBorderRadius;
+
+  &__name {
+    font-size: 13px;
+    line-height: 15px;
+    font-weight: 500;
+  }
+
+  &__date {
+    font-size: 22px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+  
+  &__month {
+    text-transform: lowercase;
+    font-size: 10px;
+    line-height: 11px;
+  }
+
+  &__temp {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__temp-val {
+    font-size: 15px;
+    line-height: 15px;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__temp-name {
+    font-size: 8px;
+    line-height: 8px;
+    font-weight: 300;
+  }
+}

@@ -1,0 +1,15 @@
+@import '../../styles/utils/variables';
+
+.forecast {
+  margin-top: 40px;
+  background-color: $secondaryBackgroundColor;
+  border-radius: $defoultBorderRadius;
+
+  padding: 10px;
+
+  &__days {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 10px;
+  }
+}

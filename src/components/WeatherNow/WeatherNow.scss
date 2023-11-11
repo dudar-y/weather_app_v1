@@ -1,0 +1,41 @@
+@import '../../styles/utils/variables';
+
+.weather-now {
+    margin-top: 10vh;
+    padding: 30px;
+    width: max-content;
+    min-width: 190px;
+    min-height: 250px;
+    background-color: $defoultBackgroundColor;
+    border-radius: $defoultBorderRadius;
+  // box-shadow: 0px 5px 15px 5px rgba(255,255,255, 0.2);
+
+  &--error {
+    background-color: rgb(237,65,62, 0.7);
+  }
+
+  &__temp {
+    font-size: 80px;
+    font-weight: 600;
+  }
+
+  &__temp-units {
+    font-size: 26px;
+  }
+
+  &__location {
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  &__wind {
+    font-size: 20px;
+  }
+
+  &__error {
+    max-width: 130px;
+
+    font-size: 18px;
+  }
+}

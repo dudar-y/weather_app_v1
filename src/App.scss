@@ -1,5 +1,17 @@
+@import './styles/fonts.scss';
+@import './styles/reset.scss';
+@import './styles/button.scss';
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .App-logo {
@@ -35,4 +47,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.app__main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
