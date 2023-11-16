@@ -1,15 +1,31 @@
 @import '../../styles/utils/variables';
 
 .forecast {
-  margin-top: 40px;
-  background-color: $secondaryBackgroundColor;
-  border-radius: $defoultBorderRadius;
+  width: 100%;
+  max-width: 500px;
+  height: 130px;
+  margin-bottom: 5vh;
 
-  padding: 10px;
+  border-radius: $defoultBorderRadius;
+  backdrop-filter: $defaultBackdropFilter;
+
+  padding: 15px;
+
+  transition: all $defoultTransitionDuration;
+
+  &--active {
+    height: 240px;
+  }
 
   &__days {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    column-gap: 10px;
   }
+
+  &__detail-close {
+    position: absolute;
+    right: 3px;
+    bottom: 3px;
+  }
+
 }

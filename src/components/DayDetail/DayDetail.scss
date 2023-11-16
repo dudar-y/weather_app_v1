@@ -1,0 +1,57 @@
+@import '../../styles/utils/variables';
+
+.day-detail {
+  margin-top: 10px;
+  display: flex;
+  font-size: 12px;
+  font-weight: 200;
+
+  &__loader {
+    width: 100%;
+    margin-top: 40px;
+  }
+
+  &__titles {
+    margin-top: 23px;
+    margin-right: 10px;
+  }
+
+  &__table {
+    width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  &__part {
+    background-color: $defoultBackgroundColor;
+  }
+
+  &__thead {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__time {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  &__icon {
+    &--transform {
+      transform: translateX(2px);
+    }
+  }
+
+  &__body {
+    & td {
+      &:nth-child(2n) {
+        border-right: 1px solid $defoultBackgroundColor;
+      }
+    
+      &:first-child {
+        border-left: 1px solid $defoultBackgroundColor;
+      }
+    }
+  }
+}

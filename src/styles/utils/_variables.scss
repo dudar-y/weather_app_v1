@@ -1,7 +1,10 @@
 $mainColor: #000;
 
 $defoultBorderRadius: 10px;
-$defoultBackgroundColor: rgb(255, 255, 255, 0.7);
+// $defoultBackgroundColor: rgb(255, 255, 255, 0.7);
+$defoultBackgroundColor: rgb(0,0,0, 0.1);
 $secondaryBackgroundColor: rgb(255, 255, 255, 0.3);
+$defaultBackdropFilter: blur(15px);
+$secondaryBackgroundColor: blur(5px);
 
 $defoultTransitionDuration: 400ms;

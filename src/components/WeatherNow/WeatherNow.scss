@@ -1,31 +1,93 @@
 @import '../../styles/utils/variables';
 
 .weather-now {
-    margin-top: 10vh;
-    padding: 30px;
-    width: max-content;
-    min-width: 190px;
-    min-height: 250px;
-    background-color: $defoultBackgroundColor;
-    border-radius: $defoultBorderRadius;
-  // box-shadow: 0px 5px 15px 5px rgba(255,255,255, 0.2);
+  width: 100%;
+  max-width: 500px;
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  margin-top: 5vh;
+  padding: 15px;
+  border-radius: $defoultBorderRadius;
+  backdrop-filter: $defaultBackdropFilter;
+
+  transition: all $defoultTransitionDuration;
 
   &--error {
-    background-color: rgb(237,65,62, 0.7);
+    background-color: rgb(237, 65, 62, 0.7);
+  }
+
+  &__top {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  &__temps {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 5px;
+  }
+
+  &__day {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 200;
+  }
+
+  &__date {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 200;
+  }
+
+  &__center {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: start;
+
+    &-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+    }
+
+    &-center {
+      display: flex;
+      justify-content: center;
+    }
+
+    &-right {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: end;
+      align-items: flex-start;
+    }
   }
 
   &__temp {
-    font-size: 80px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   &__temp-units {
-    font-size: 26px;
+    z-index: 0;
+    position: relative;
+    font-size: 18px;
+    top: -15px;
   }
 
   &__location {
-    font-size: 24px;
-    font-weight: 500;
+    text-align: left;
+    align-content: flex-start;
+    font-size: 28px;
+    font-weight: 600;
     text-transform: uppercase;
   }
 
@@ -37,5 +99,36 @@
     max-width: 130px;
 
     font-size: 18px;
+  }
+
+  &__details {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    
+
+    font-size: 12px;
+  }
+
+  &__icon {
+    margin-right: 5px;
+
+    &--main {
+      margin-right: 0;
+    }
+  }
+
+  &__info {
+    display: flex;
+    font-size: 14px;
+    
+    &--desc {
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: 200;
+    }
   }
 }

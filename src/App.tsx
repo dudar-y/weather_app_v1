@@ -19,6 +19,13 @@ import { defineLang } from './helpers/defineLang';
 import { Background } from './types/Background';
 import { getPlaceByCoord } from './api/openweather/opengeoApi';
 import { getLocalName } from './helpers/getLocalName';
+import { Loader } from './components/Loader/Loader';
+import { SelectCity } from './components/SelectCity/SelectCity';
+
+const ERROR_INITIAL = {
+  en: 'To continue, please enable geolocation access in your browser or select place.',
+  uk: 'Для продовження, будь-ласка, надайте доступ до геолокації в своєму браузері або оберіть населений пункт.',
+}
 
 const ERROR_CITY_COORD = {
   en: 'Failed to determine geolocation. Allow geolocation, or disable the option in the settings.',
@@ -28,6 +35,16 @@ const ERROR_CITY_COORD = {
 const ERROR_CITY_API = {
   en: 'Failed to automatically determine geolocation. You can choose the location manually in the settings.',
   uk: 'Не вдалось автоматично визначити геолокацію. Ви можете вибрати локацію вручну в налаштуваннях.',
+};
+
+const ERROR_WEATHER_API = {
+  en: 'Unable to load weather data. Please choose another location in the settings or try again later.',
+  uk: 'Неможливо завантажити дані про погоду. Будь ласка вибаріть іншу локацію в налаштуваннях, або спробуйте пізніше.',
+};
+
+const ERROR_FORECAST_API = {
+  en: 'Unable to load forecast data. Please choose another location in the settings or try again later.',
+  uk: 'Неможливо завантажити дані прогнозу погоди. Будь ласка вибаріть іншу локацію в налаштуваннях, або спробуйте пізніше.',
 };
 
 const INITIAL_BACKGROUND = {
@@ -42,7 +59,13 @@ const INITIAL_BACKGROUND = {
 }
 
 const App: React.FC = () => {
+  const { setting, city, setCity } = useContext(AppContext);
+  const { lang, units } = setting;
+
   const [background, setBeckground] = useState<Background>(INITIAL_BACKGROUND);
+  const [isBackgroundLoading, setIsBackgroundLoading] = useState(true);
+  const [isWeatherLoading, setIsWeatherLoading] = useState(true);
+  const [isForecastLoading, setIsForecastLoading] = useState(true);
   const [isSettingActive, setIsSettingActive] = useState(false);
   const [error, setError] = useState('');
   const [weather, setWeather] = useState<Weather | null>(null);
@@ -54,12 +77,9 @@ const App: React.FC = () => {
     error: errorFromGeo,
   } = useGeolocation();
 
-  const { setting, city, setCity } = useContext(AppContext);
-  const { lang, units } = setting;
-
   const handleSettingActive = (v: boolean) => {
     setIsSettingActive(v);
-  }
+  };
 
   const photoParams = useMemo(() => {
     return getPhotoParams();
@@ -80,13 +100,25 @@ const App: React.FC = () => {
         }
         setBeckground(newBackground);
       })
-      .catch(() => { });
+      .catch((e) => {
+        console.log(e)
+      })
   }, [photoParams]);
+
+  useEffect(() => {
+    setIsBackgroundLoading(true);
+    if (background) {
+      const backgroundImage = new Image();
+      backgroundImage.src = background.url;
+
+      backgroundImage.onload = () => {
+        setIsBackgroundLoading(false);
+      };
+    }
+  }, [background])
 
   const getCityFromApi = () => {
     if (errorFromGeo) {
-      console.log(defineLang(ERROR_CITY_COORD, lang));
-      setError(defineLang(ERROR_CITY_COORD, lang));
       return;
     }
 
@@ -95,7 +127,7 @@ const App: React.FC = () => {
       getPlaceByCoord({ latitude: latitudeFromGeo, longitude: longitudeFromGeo })
         .then((res) => {
           const data = res[0];
-  
+
           const newCity: City = {
             name: {
               uk: getLocalName(data, 'uk'),
@@ -110,23 +142,23 @@ const App: React.FC = () => {
             state: data.state,
           }
 
-          console.log(newCity);
           setCity(newCity);
         })
         .catch((e) => {
-          console.log(e);
           setError(defineLang(ERROR_CITY_API, lang));
         });
     };
   };
 
   const getWeatherFromApi = () => {
+    setIsWeatherLoading(true);
     if (city.coord) {
       const { lat: latitude, lon: longitude } = city.coord;
-      getForecastData({ latitude, longitude }, lang, units)
+      getForecastData({ latitude, longitude }, 'en', units)
         .then((res) => {
+          console.log(res)
           const weatherNow = res.list[0];
-          const newWeather = {
+          const newWeather: Weather = {
             main_params: {
               temp: weatherNow.main.temp,
               feels_like: weatherNow.main.feels_like,
@@ -134,10 +166,14 @@ const App: React.FC = () => {
               temp_max: weatherNow.main.temp_max,
               pressure: weatherNow.main.pressure,
               humidity: weatherNow.main.humidity,
+              rain: weatherNow.rain ? true : false,
+              sunrise: getTimeFromUnix(res.city.sunrise),
+              sunset: getTimeFromUnix(res.city.sunset),
             },
             info_params: {
               status: weatherNow.weather[0].main,
               description: weatherNow.weather[0].description,
+              icon: weatherNow.weather[0].icon,
             },
             wind_params: {
               speed: weatherNow.wind.speed,
@@ -147,16 +183,18 @@ const App: React.FC = () => {
 
           setWeather(newWeather);
         })
-        .catch((e) => {
-          setError(e);
+        .catch(() => {
+          setError(defineLang(ERROR_WEATHER_API, lang));
         })
+        .finally(() => setIsWeatherLoading(false));
     };
   };
 
   const getForecastFromApi = () => {
+    setIsForecastLoading(true);
     if (city.coord) {
       const { lat: latitude, lon: longitude } = city.coord;
-      getForecastData({ latitude, longitude }, lang, units)
+      getForecastData({ latitude, longitude }, 'en', units)
         .then((res) => {
           const newForecast: ForecastType[] = [];
           const forecastList = res.list;
@@ -236,6 +274,12 @@ const App: React.FC = () => {
 
           setForecast(newForecast);
         })
+        .catch(() => {
+          setError(defineLang(ERROR_FORECAST_API, lang));
+        })
+        .finally(() => {
+          setIsForecastLoading(false);
+        });
     };
   };
 
@@ -350,35 +394,54 @@ const App: React.FC = () => {
     }
   }
 
-  // useEffect(() => {
-  //   getCityFromApi();
-  // }, [setting, lang])
-
-  // useEffect(() => {
-  //   console.log('get');
-  //   getCityFromApi();
-  //   getAllWeatherDataFromApi();
-  // }, []);
+  useEffect(() => {
+    getCityFromApi();
+  }, [errorFromGeo, latitudeFromGeo])
 
   useEffect(() => {
-    getWeatherFromApi();
+    if (city.coord.lat) {
+      getWeatherFromApi();
+      getForecastFromApi();
+    }
   }, [city, setting]);
 
-  // useEffect(() => {
-  //   getCityFromApi();
-  // }, [coord, setting.useGeolocation]);
-
   return (
-    <div
-      className="App"
-      style={{ backgroundImage: `url(${background.url})` }}
-    >
-      <Setting isSettingActive={isSettingActive} getCity={getCityFromApi} />
-      <SettingIcon isSettingActive={isSettingActive} onSettingActive={handleSettingActive} />
-      <main className="app__main main">
-        <WeatherNow data={weather} error={error} />
-        {/* <Forecast /> */}
-      </main>
+    <div className="app">
+      {!isBackgroundLoading
+        ? (
+          <div
+            className="app__container"
+            style={{ backgroundImage: `url(${background.url})` }}
+          >
+            <Setting
+              isSettingActive={isSettingActive}
+              getCity={getCityFromApi}
+              color={background.color}
+            />
+            <SettingIcon isSettingActive={isSettingActive} onSettingActive={handleSettingActive} />
+            {(city.coord.lat !== 0) &&
+              (<main className="app__main main">
+                <WeatherNow
+                  data={weather}
+                  error={error}
+                  isLoading={isWeatherLoading}
+                />
+                <Forecast data={forecast.slice(0, 5)} isLoading={isForecastLoading} />
+              </main>)}
+            <div className="app__initial">
+              <span className="app__initial-message">
+                {defineLang(ERROR_INITIAL, lang)}
+              </span>
+            </div>
+            <div className="app__select-city">
+              <SelectCity />
+            </div>
+          </div>)
+        : (
+          <div className="app__loader">
+            <Loader />
+          </div>
+        )}
     </div>
   );
 }

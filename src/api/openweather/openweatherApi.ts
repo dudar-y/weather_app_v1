@@ -1,6 +1,6 @@
 import { wait } from '../../helpers/wait';
+import { BASE_DELEY } from '../../setting';
 
-const BASE_DELEY = 500;
 const API_KEY = '271ae053938f8119a30a08d238aea911';
 const BASE_URL = 'https://api.openweathermap.org/data/2.5/forecast';
 

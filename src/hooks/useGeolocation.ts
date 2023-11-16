@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../AppContext";
+import { defineLang } from "../helpers/defineLang";
 
 type Coordinates = {
   latitude: number | null;
@@ -12,21 +14,35 @@ const initialCoords = {
   error: null,
 };
 
+const ERROR_GEOLOCATION = {
+  uk: 'Для продовження, будь-ласка, дозвольте доступ до вашої геолокації або вибаріть ваше місто в налаштуваннях.',
+  en: 'To proceed, please allow access to your location or select your city in the settings.',
+}
+
 export const useGeolocation = (): Coordinates => {
   const [coords, setCoords] = useState<Coordinates>(initialCoords);
+  const { setting } = useContext(AppContext);
 
   useEffect(() => {
+    console.log('done');
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log('1');
           const { latitude, longitude } = position.coords;
           setCoords({ latitude, longitude, error: null });
         },
         (error) => {
-          setCoords({ latitude: null, longitude: null, error: error.message });
+          console.log('2');
+          setCoords({
+              latitude: null,
+              longitude: null,
+              error: defineLang(ERROR_GEOLOCATION, setting.lang)
+            });
         }
       );
     } else {
+      console.log('3')
       setCoords({
         latitude: null,
         longitude: null,

@@ -3,25 +3,32 @@
 .day {
   padding: 5px;
 
-  background-color: $defoultBackgroundColor;
-  border-radius: $defoultBorderRadius;
+  border-right: 1px solid #fff;
+
+  &:last-child {
+    border-right: none;
+  }
+
+  border-bottom: 1px solid #fff;
+
+  &--active {
+    border-bottom: none;
+  }
+
+  // background-color: $defoultBackgroundColor;
+  // border-radius: $defoultBorderRadius;
 
   &__name {
-    font-size: 13px;
-    line-height: 15px;
-    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 12px;
+    font-weight: 200;
   }
 
   &__date {
-    font-size: 22px;
-    line-height: 24px;
+    text-transform: uppercase;
+    font-size: 12px;
     font-weight: 500;
-  }
-  
-  &__month {
-    text-transform: lowercase;
-    font-size: 10px;
-    line-height: 11px;
   }
 
   &__temp {
@@ -42,5 +49,9 @@
     font-size: 8px;
     line-height: 8px;
     font-weight: 300;
+  }
+
+  &__details {
+    height: 200px;
   }
 }

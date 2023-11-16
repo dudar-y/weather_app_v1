@@ -1,4 +1,4 @@
-import { Day } from '../types/Day'
+import { Day } from '../types/Day';
 
 export function getDayFromUnix(val: number): Day {
   const date = new Date(val * 1000);

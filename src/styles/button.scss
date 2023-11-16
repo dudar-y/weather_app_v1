@@ -1,32 +1,32 @@
 @import '../styles/utils/variables';
 
 .button {
-  height: 30px;
+  height: 20px;
 
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: #dde2e3;
-  font-size: 12px;
-  font-weight: 600;
+  background-color: #DFBCB2;
+  font-size: 8px;
+  font-weight: 500;
   line-height: 12px;
   text-transform: uppercase;
 
-  border: 1px solid #9d9c9a;
+  // border: 1px solid #9d9c9a;
   border-radius: 6px;
 
   transition: all $defoultTransitionDuration;
 
   &--active {
-    background-color: #C7CD83;
+    background-color: #7CB488;
     border-color: #483E46;
     pointer-events: none;
   }
 
   &:hover {
-    background-color: #c4d0d9;
+    background-color: #AA9084;
     border-color: #483E46;
   }
 }

@@ -1,26 +1,82 @@
 import './Day.scss';
+import cn from 'classnames';
 
-import { ReactComponent as SunIcon } from '../../img/svg/sun_1.svg';
+import { ForecastType } from '../../types/ForecastType';
+import { useContext } from 'react';
+import { AppContext } from '../../AppContext';
+import { getStringMonthPart } from '../../helpers/getStringMonthPart';
+import { WeatherIcon } from '../WeatherIcon/WeatherIcon';
+import { getDayName } from '../../helpers/getDayName';
 
-export const Day = () => {
+type Props = {
+  data: ForecastType;
+  onDayClick: (v: ForecastType) => void;
+  selectedDay: ForecastType | null;
+}
+
+const DAY_TEMP_MAX = {
+  uk: 'макс',
+  en: 'max',
+};
+
+const DAY_TEMP_MIN = {
+  uk: 'мін',
+  en: 'min',
+};
+
+export const Day: React.FC<Props> = ({ data, onDayClick, selectedDay }) => {
+  const { setting } = useContext(AppContext);
+  const { lang, units } = setting;
+  const date = data.date.split('.');
+
+  // console.log(data);
+
+  const month = getStringMonthPart(+date[1] - 1, lang);
+  const num = date[0];
+
+  const minTemp = () => {
+    const temps = data.times.map(frc => frc.main_params.temp);
+    const min = Math.min(...temps);
+
+    return Math.floor(min);
+  }
+
+  const maxTemp = () => {
+    const temps = data.times.map(frc => frc.main_params.temp);
+    const min = Math.max(...temps);
+
+    return Math.ceil(min);
+  };
+
+  const mainTime = data.times.find(frc => frc.time === '14:00:00') || data.times[0];
+
   return (
-    <div className="forecast__day day">
-      <div className="day__name">Середа</div>
-      <div className="day__date">08</div>
-      <div className="day__month">Листопада</div>
+    <button
+      className={cn('forecast__day day', {'day--active': data === selectedDay})}
+      type='button'
+      onClick={() => {
+        if (data === selectedDay) {
+          return;
+        }
+  
+        onDayClick(data);
+      }}
+    >
+      <div className="day__name">{getDayName(data.name, lang)}</div>
+      <div className="day__date">
+        {`${num} ${month}`}
+      </div>
       <div className="day__weather-icon">
-        <SunIcon width={40} height={40} />
+        <WeatherIcon width={35} desc={mainTime.info_params.description} />
       </div>
       <div className="day__temp">
         <div className="day__temp-val">
-          <span className="day__temp-name">макс</span>
-          15°
+          {`⬇${minTemp()}°`}
         </div>
         <div className="day__temp-val">
-          <span className="day__temp-name">мін</span>
-          7°
+          {`⬆${maxTemp()}°`}
         </div>
       </div>
-    </div>
+    </button>
   );
 };

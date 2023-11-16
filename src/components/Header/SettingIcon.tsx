@@ -29,14 +29,14 @@ export const SettingIcon: React.FC<Props> = (
           type="button"
           className="set__icon"
         >
-          <Setting width={40} height={40} />
+          <Setting width={30} height={30} />
         </button>)
         : (<button
           onClick={handleButtonCrossClick}
           type="button"
           className="set__icon"
         >
-          <Cross width={40} height={40} />
+          <Cross width={30} height={30} />
         </button>)}
     </div>
   );

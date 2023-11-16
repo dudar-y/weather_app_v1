@@ -1,5 +1,5 @@
 const SETTING_TITLE = {
-  en: 'Setting',
+  en: 'Settings',
   uk: 'Налаштування',
 };
 
@@ -19,13 +19,13 @@ const SETTING_GEO_TITLE = {
 };
 
 const SETTING_LANGUAGES_UK = {
-  en: 'Ukrainian',
-  uk: 'Українська',
+  en: 'Ukr',
+  uk: 'Укр',
 };
 
 const SETTING_LANGUAGES_EN = {
-  en: 'English',
-  uk: 'Англійська',
+  en: 'Eng',
+  uk: 'Англ',
 };
 
 const SETTING_GEO_ON = {
