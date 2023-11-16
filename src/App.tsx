@@ -419,7 +419,7 @@ const App: React.FC = () => {
               color={background.color}
             />
             <SettingIcon isSettingActive={isSettingActive} onSettingActive={handleSettingActive} />
-            {(city.coord.lat !== 0) &&
+            {(city.coord.lat !== 0) ?
               (<main className="app__main main">
                 <WeatherNow
                   data={weather}
@@ -427,15 +427,17 @@ const App: React.FC = () => {
                   isLoading={isWeatherLoading}
                 />
                 <Forecast data={forecast.slice(0, 5)} isLoading={isForecastLoading} />
-              </main>)}
-            <div className="app__initial">
-              <span className="app__initial-message">
-                {defineLang(ERROR_INITIAL, lang)}
-              </span>
-            </div>
-            <div className="app__select-city">
-              <SelectCity />
-            </div>
+              </main>)
+              : (<>
+                <div className="app__initial">
+                  <span className="app__initial-message">
+                    {defineLang(ERROR_INITIAL, lang)}
+                  </span>
+                </div>
+                <div className="app__select-city">
+                  <SelectCity />
+                </div>
+              </>)}
           </div>)
         : (
           <div className="app__loader">
