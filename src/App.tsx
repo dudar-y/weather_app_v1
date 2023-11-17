@@ -62,6 +62,12 @@ const App: React.FC = () => {
   const { setting, city, setCity } = useContext(AppContext);
   const { lang, units } = setting;
 
+  useEffect(() => {
+    const vh = window.innerHeight;
+    
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }, [])
+
   const [background, setBeckground] = useState<Background>(INITIAL_BACKGROUND);
   const [isBackgroundLoading, setIsBackgroundLoading] = useState(true);
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);

@@ -1,4 +1,5 @@
 @import '../../styles/utils/variables';
+@import '../../styles/utils/mixins';
 
 .setting {
   box-sizing: border-box;
@@ -8,7 +9,8 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  height: 100vh;
+
+  @include height;
 
   padding: 30px 30px;
   transform: translateX(100%);

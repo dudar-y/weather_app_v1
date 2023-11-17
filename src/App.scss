@@ -1,6 +1,7 @@
 @import './styles/fonts.scss';
 @import './styles/reset.scss';
 @import './styles/button.scss';
+@import './styles/utils/mixins';
 
 * {
   box-sizing: border-box;
@@ -11,15 +12,16 @@
   &__container {
     text-align: center;
     padding: 15px;
-    height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: rgb(0,0,0, 0.4);
+
+    @include height;
   }
 
   &__loader {
-    height: 100vh;
+    @include height;
     background-color: #d1d9dc;
   }
 
