@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/weather_app_v1/static/css/main.38a13bd7.css",
+    "main.css": "/weather_app_v1/static/css/main.9346d8d6.css",
     "main.js": "/weather_app_v1/static/js/main.acbb9ec0.js",
     "static/js/787.df6a4496.chunk.js": "/weather_app_v1/static/js/787.df6a4496.chunk.js",
     "static/media/cloudy_with_snowfall.svg": "/weather_app_v1/static/media/cloudy_with_snowfall.8acc376f0ac01a0ac2ad56b4f9855687.svg",
@@ -31,12 +31,12 @@
     "static/media/wind.svg": "/weather_app_v1/static/media/wind.084302844571bb0ee5a7c28502836f61.svg",
     "static/media/find.svg": "/weather_app_v1/static/media/find.e4300fc74a44e502d79416a9536685e1.svg",
     "static/media/cross.svg": "/weather_app_v1/static/media/cross.242faa6f5b89bd50a08a10ccadab782e.svg",
-    "main.38a13bd7.css.map": "/weather_app_v1/static/css/main.38a13bd7.css.map",
+    "main.9346d8d6.css.map": "/weather_app_v1/static/css/main.9346d8d6.css.map",
     "main.acbb9ec0.js.map": "/weather_app_v1/static/js/main.acbb9ec0.js.map",
     "787.df6a4496.chunk.js.map": "/weather_app_v1/static/js/787.df6a4496.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.38a13bd7.css",
+    "static/css/main.9346d8d6.css",
     "static/js/main.acbb9ec0.js"
   ]
 }
