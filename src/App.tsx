@@ -419,8 +419,8 @@ const App: React.FC = () => {
               color={background.color}
             />
             <SettingIcon isSettingActive={isSettingActive} onSettingActive={handleSettingActive} />
-            {(city.coord.lat !== 0) ?
-              (<main className="app__main main">
+            {(city.coord.lat !== 0)
+              ? (<main className="app__main main">
                 <WeatherNow
                   data={weather}
                   error={error}

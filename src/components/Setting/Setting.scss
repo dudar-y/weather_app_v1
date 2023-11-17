@@ -1,12 +1,13 @@
 @import '../../styles/utils/variables';
 
 .setting {
+  box-sizing: border-box;
   width: 100%;
   max-width: 500px;
   z-index: 1;
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 0;
+  bottom: 0;
   height: 100vh;
 
   padding: 30px 30px;
