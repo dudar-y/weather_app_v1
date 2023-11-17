@@ -6,7 +6,9 @@ import './WeatherNow.scss';
 import { getCityName } from '../../helpers/getCityName';
 import { getTemperatureUnits, getWindUnits } from '../../helpers/getUnits';
 import { getStringDate } from '../../helpers/getStringDate';
-import { ReactComponent as BrokenClouds } from '../../img/weather/sun.svg'
+
+import { ReactComponent as ArrowUp } from '../../img/svg/arrow_top.svg';
+import { ReactComponent as ArrowDown } from '../../img/svg/arrow_down.svg';
 import { ReactComponent as WindIcon } from '../../img/svg/wind.svg'
 import { ReactComponent as HumIcon } from '../../img/svg/hum.svg'
 import { ReactComponent as FeelsLikeIcon } from '../../img/svg/feels_like.svg'
@@ -37,7 +39,7 @@ export const WeatherNow: React.FC<Props> = ({ data, error, isLoading }) => {
         height: '60px',
       };
     }
-  
+
     const val = Math.round(data.main_params.temp).toString();
     switch (val?.length) {
       case 1:
@@ -86,10 +88,16 @@ export const WeatherNow: React.FC<Props> = ({ data, error, isLoading }) => {
             <div className="weather-now__location">{getCityName(city, lang)}</div>
             <div className="weather-now__temps">
               <div className="weather-now__minmax">
-                {`⬇${Math.floor(data.main_params.temp_min)}°`}
+                <div className="weather-now__arrow">
+                  <ArrowDown width={16} height={16} />
+                </div>
+                {`${Math.floor(data.main_params.temp_min)}°`}
               </div>
               <div className="weather-now__minmax">
-                {`⬆${Math.ceil(data.main_params.temp_max)}°`}
+                <div className="weather-now__arrow">
+                  <ArrowUp width={16} height={16} />
+                </div>
+                {`${Math.ceil(data.main_params.temp_max)}°`}
               </div>
             </div>
           </div>

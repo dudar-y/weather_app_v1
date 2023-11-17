@@ -33,6 +33,14 @@
     gap: 5px;
   }
 
+  &__minmax {
+    display: flex;
+  }
+
+  &__arrow {
+    transform: translate(2px, 2px);
+  }
+
   &__day {
     text-transform: uppercase;
     font-size: 18px;

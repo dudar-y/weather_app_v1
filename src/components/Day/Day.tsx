@@ -8,21 +8,14 @@ import { getStringMonthPart } from '../../helpers/getStringMonthPart';
 import { WeatherIcon } from '../WeatherIcon/WeatherIcon';
 import { getDayName } from '../../helpers/getDayName';
 
+import { ReactComponent as ArrowUp } from '../../img/svg/arrow_top.svg';
+import { ReactComponent as ArrowDown } from '../../img/svg/arrow_down.svg';
+
 type Props = {
   data: ForecastType;
   onDayClick: (v: ForecastType) => void;
   selectedDay: ForecastType | null;
 }
-
-const DAY_TEMP_MAX = {
-  uk: 'макс',
-  en: 'max',
-};
-
-const DAY_TEMP_MIN = {
-  uk: 'мін',
-  en: 'min',
-};
 
 export const Day: React.FC<Props> = ({ data, onDayClick, selectedDay }) => {
   const { setting } = useContext(AppContext);
@@ -52,13 +45,13 @@ export const Day: React.FC<Props> = ({ data, onDayClick, selectedDay }) => {
 
   return (
     <button
-      className={cn('forecast__day day', {'day--active': data === selectedDay})}
+      className={cn('forecast__day day', { 'day--active': data === selectedDay })}
       type='button'
       onClick={() => {
         if (data === selectedDay) {
           return;
         }
-  
+
         onDayClick(data);
       }}
     >
@@ -71,10 +64,16 @@ export const Day: React.FC<Props> = ({ data, onDayClick, selectedDay }) => {
       </div>
       <div className="day__temp">
         <div className="day__temp-val">
-          {`⬇${minTemp()}°`}
+          <div className="day__temp-arrow">
+            <ArrowDown width={14} height={14} />
+          </div>
+          {`${minTemp()}°`}
         </div>
         <div className="day__temp-val">
-          {`⬆${maxTemp()}°`}
+          <div className="day__temp-arrow">
+            <ArrowUp width={14} height={14} />
+          </div>
+          {`${maxTemp()}°`}
         </div>
       </div>
     </button>
