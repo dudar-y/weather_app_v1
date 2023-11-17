@@ -3,7 +3,7 @@ import { BASE_DELEY } from '../../setting';
 
 const API_KEY = 'q36fsowLWYjOSXdqGHGURp8_EDOf4kmXrQ1aHkBjQ4k';
 const BASE_ORIENTATION = 'landscape';
-const BASE_URL = 'https://api111.unsplash.com/photos/random/';
+const BASE_URL = 'https://api.unsplash.com/photos/random/';
 
 export const getPhoto = (query: string[]) => {
   const strQuery = query.join('+');
