@@ -21,6 +21,7 @@ import { getPlaceByCoord } from './api/openweather/opengeoApi';
 import { getLocalName } from './helpers/getLocalName';
 import { Loader } from './components/Loader/Loader';
 import { SelectCity } from './components/SelectCity/SelectCity';
+import { getRealVhFromListener } from './helpers/getRealVhFromListener';
 
 const ERROR_INITIAL = {
   en: 'To continue, please enable geolocation access in your browser or select place.',
@@ -62,13 +63,7 @@ const App: React.FC = () => {
   const { setting, city, setCity } = useContext(AppContext);
   const { lang, units } = setting;
 
-  useEffect(() => {
-    const vh = window.innerHeight;
-    
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }, [])
-
-  const [background, setBeckground] = useState<Background>(INITIAL_BACKGROUND);
+  const [background, setBeckground] = useState<Background | null>(null);
   const [isBackgroundLoading, setIsBackgroundLoading] = useState(true);
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
   const [isForecastLoading, setIsForecastLoading] = useState(true);
@@ -91,6 +86,8 @@ const App: React.FC = () => {
     return getPhotoParams();
   }, [])
 
+  useEffect(getRealVhFromListener, []);
+
   useEffect(() => {
     getPhoto(photoParams)
       .then((res) => {
@@ -107,6 +104,7 @@ const App: React.FC = () => {
         setBeckground(newBackground);
       })
       .catch((e) => {
+        setBeckground(INITIAL_BACKGROUND);
         console.log(e)
       })
   }, [photoParams]);
@@ -413,7 +411,7 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
-      {!isBackgroundLoading
+      {!isBackgroundLoading && background
         ? (
           <div
             className="app__container"
