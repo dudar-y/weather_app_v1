@@ -1,0 +1,23 @@
+.powered {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 8px;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  &__block {
+    display: flex;
+  }
+
+  &__title {
+    text-transform: uppercase;
+    margin-right: 3px;
+  }
+
+  &__author {
+    text-transform: uppercase;
+    margin: 0 3px 0 15px;
+  }
+}

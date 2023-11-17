@@ -19,14 +19,20 @@
 
   transition: all $defoultTransitionDuration;
 
+  &:hover {
+    background-color: #AA9084;
+    border-color: #483E46;
+  }
+
   &--active {
     background-color: #7CB488;
     border-color: #483E46;
     pointer-events: none;
-  }
 
-  &:hover {
-    background-color: #AA9084;
-    border-color: #483E46;
+
+    &:hover {
+      background-color: #7CB488;
+      border-color: #483E46;
+    }
   }
 }

@@ -22,6 +22,7 @@ import { getLocalName } from './helpers/getLocalName';
 import { Loader } from './components/Loader/Loader';
 import { SelectCity } from './components/SelectCity/SelectCity';
 import { getRealVhFromListener } from './helpers/getRealVhFromListener';
+import { Powered } from './components/Powered/Powered';
 
 const ERROR_INITIAL = {
   en: 'To continue, please enable geolocation access in your browser or select place.',
@@ -331,6 +332,7 @@ const App: React.FC = () => {
                   <SelectCity />
                 </div>
               </>)}
+              <Powered user={background.user} />
           </div>)
         : (
           <div className="app__loader">
