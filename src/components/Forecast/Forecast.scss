@@ -3,7 +3,7 @@
 .forecast {
   width: 100%;
   max-width: 500px;
-  height: 130px;
+  height: 120px;
   margin-bottom: 5vh;
 
   border-radius: $defoultBorderRadius;
@@ -14,7 +14,7 @@
   transition: all $defoultTransitionDuration;
 
   &--active {
-    height: 240px;
+    height: 230px;
   }
 
   &__days {

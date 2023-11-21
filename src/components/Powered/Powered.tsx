@@ -1,25 +1,14 @@
 import { useContext } from 'react';
+import './Powered.scss';
 import { AppContext } from '../../AppContext';
 import { defineLang } from '../../helpers/defineLang';
-import './Powered.scss';
-
-const POWERED_OPENWEATHER_TITLE = {
-  en: 'Powered by:',
-  uk: 'Дані надано:',
-}
-
-const POWERED_UNSPLASH_TITLE = {
-  en: 'Photo from:',
-  uk: 'Фото надано:',
-}
-
-const POWERED_AUTHOR = {
-  en: 'Author:',
-  uk: 'Автор:',
-}
-
-const POWERED_OPENWEATHER_LINK = "https://openweathermap.org/";
-const POWERED_UNSPLASH_LINK = "https://unsplash.com/";
+import {
+  POWERED_AUTHOR,
+  POWERED_OPENWEATHER_LINK,
+  POWERED_OPENWEATHER_TITLE,
+  POWERED_UNSPLASH_LINK,
+  POWERED_UNSPLASH_TITLE
+} from '../../lang/Powered';
 
 type Props = {
   user: {
@@ -36,7 +25,7 @@ export const Powered: React.FC<Props> = ({ user }) => {
   const { firstName, lastName, link } = user;
 
   return (
-    <div className="powered">
+    <footer className="powered">
       <div className="powered__block">
         <p className="powered__title">
           {defineLang(POWERED_OPENWEATHER_TITLE, lang)}
@@ -68,6 +57,6 @@ export const Powered: React.FC<Props> = ({ user }) => {
           {`${firstName || 'Unsplash'} ${lastName || ''}`}
         </a>
       </div>
-    </div>
+    </footer>
   );
 };

@@ -11,6 +11,8 @@ import { getDayName } from '../../helpers/getDayName';
 import { ReactComponent as ArrowUp } from '../../img/svg/arrow_top.svg';
 import { ReactComponent as ArrowDown } from '../../img/svg/arrow_down.svg';
 
+const ARROW_ICON_SIZE = 12;
+
 type Props = {
   data: ForecastType;
   onDayClick: (v: ForecastType) => void;
@@ -65,13 +67,13 @@ export const Day: React.FC<Props> = ({ data, onDayClick, selectedDay }) => {
       <div className="day__temp">
         <div className="day__temp-val">
           <div className="day__temp-arrow">
-            <ArrowDown width={14} height={14} />
+            <ArrowDown width={ARROW_ICON_SIZE} height={ARROW_ICON_SIZE} />
           </div>
           {`${minTemp()}°`}
         </div>
         <div className="day__temp-val">
           <div className="day__temp-arrow">
-            <ArrowUp width={14} height={14} />
+            <ArrowUp width={ARROW_ICON_SIZE} height={ARROW_ICON_SIZE} />
           </div>
           {`${maxTemp()}°`}
         </div>

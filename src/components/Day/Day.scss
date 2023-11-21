@@ -1,7 +1,8 @@
 @import '../../styles/utils/variables';
+@import '../../styles/utils/mixins';
 
 .day {
-  padding: 5px;
+  padding: 2px;
 
   border-right: 1px solid #fff;
 
@@ -18,16 +19,11 @@
   &__name {
     margin-bottom: 3px;
 
-    text-transform: uppercase;
-    font-size: 18px;
-    line-height: 12px;
-    font-weight: 200;
+    @include uppercaseSmall;
   }
 
   &__date {
-    text-transform: uppercase;
-    font-size: 12px;
-    font-weight: 500;
+    @include uppercaseBoldSmall;
   }
 
   &__temp {
@@ -36,11 +32,9 @@
   }
 
   &__temp-val {
-    font-size: 15px;
-    line-height: 15px;
-    font-weight: 500;
-
     display: flex;
+
+    @include normalSmall;
   }
 
   &__temp-arrow {

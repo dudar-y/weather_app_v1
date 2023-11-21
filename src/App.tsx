@@ -299,6 +299,15 @@ const App: React.FC = () => {
     }
   }, [city, setting]);
 
+  useEffect(() => {
+    const update = setInterval(() => {
+      getWeatherFromApi();
+      getForecastFromApi();
+    }, 10 * 60 * 1000)
+
+    return () => clearInterval(update);
+  }, []);
+
   return (
     <div className="app">
       {!isBackgroundLoading && background
