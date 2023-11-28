@@ -2,6 +2,10 @@
 @import '../../styles/utils/mixins';
 
 .day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: 2px;
 
   border-right: 1px solid #fff;
@@ -27,6 +31,8 @@
   }
 
   &__temp {
+    width: 100%;
+    max-width: 80px;
     display: flex;
     justify-content: space-between;
   }

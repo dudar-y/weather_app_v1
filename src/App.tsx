@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import './App.scss';
 import { useGeolocation } from './hooks/useGeolocation';
@@ -24,30 +25,12 @@ import { SelectCity } from './components/SelectCity/SelectCity';
 import { getRealVhFromListener } from './helpers/getRealVhFromListener';
 import { Powered } from './components/Powered/Powered';
 
-const ERROR_INITIAL = {
-  en: 'To continue, please enable geolocation access in your browser or select place.',
-  uk: 'Для продовження, будь-ласка, надайте доступ до геолокації в своєму браузері або оберіть населений пункт.',
-}
-
-const ERROR_CITY_COORD = {
-  en: 'Failed to determine geolocation. Allow geolocation, or disable the option in the settings.',
-  uk: 'Не вдалось визначити геолокацію. Дозвольте визначення геолокації, або відключіть опцію в налаштуваннях.',
-};
-
-const ERROR_CITY_API = {
-  en: 'Failed to automatically determine geolocation. You can choose the location manually in the settings.',
-  uk: 'Не вдалось автоматично визначити геолокацію. Ви можете вибрати локацію вручну в налаштуваннях.',
-};
-
-const ERROR_WEATHER_API = {
-  en: 'Unable to load weather data. Please choose another location in the settings or try again later.',
-  uk: 'Неможливо завантажити дані про погоду. Будь ласка вибаріть іншу локацію в налаштуваннях, або спробуйте пізніше.',
-};
-
-const ERROR_FORECAST_API = {
-  en: 'Unable to load forecast data. Please choose another location in the settings or try again later.',
-  uk: 'Неможливо завантажити дані прогнозу погоди. Будь ласка вибаріть іншу локацію в налаштуваннях, або спробуйте пізніше.',
-};
+import {
+  ERROR_CITY_API,
+  ERROR_FORECAST_API,
+  ERROR_INITIAL,
+  ERROR_WEATHER_API
+} from './lang/Error';
 
 const INITIAL_BACKGROUND = {
   color: "#91bad6",
@@ -89,7 +72,7 @@ const App: React.FC = () => {
 
   useEffect(getRealVhFromListener, []);
 
-  useEffect(() => {
+  const getPhotoFromApi = () => {
     getPhoto(photoParams)
       .then((res) => {
         const newBackground = {
@@ -108,6 +91,10 @@ const App: React.FC = () => {
         setBeckground(INITIAL_BACKGROUND);
         console.log(e)
       })
+  }
+
+  useEffect(() => {
+    getPhotoFromApi();
   }, [photoParams]);
 
   useEffect(() => {
@@ -300,12 +287,20 @@ const App: React.FC = () => {
   }, [city, setting]);
 
   useEffect(() => {
-    const update = setInterval(() => {
+    const updateWeather = setInterval(() => {
       getWeatherFromApi();
       getForecastFromApi();
-    }, 10 * 60 * 1000)
+    }, 10 * 60 * 1000);
 
-    return () => clearInterval(update);
+    const updatePhoto = setInterval(() => {
+      getPhotoFromApi();
+    }, 4 * 60 * 60 * 1000);
+
+
+    return () => {
+      clearInterval(updatePhoto);
+      clearInterval(updateWeather);
+    };
   }, []);
 
   return (
@@ -341,7 +336,7 @@ const App: React.FC = () => {
                   <SelectCity />
                 </div>
               </>)}
-              <Powered user={background.user} />
+            <Powered user={background.user} />
           </div>)
         : (
           <div className="app__loader">

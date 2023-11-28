@@ -14,6 +14,7 @@ import { ReactComponent as HumIcon } from '../../img/svg/hum.svg'
 import { ReactComponent as FeelsLikeIcon } from '../../img/svg/feels_like.svg'
 import { WeatherIcon } from '../WeatherIcon/WeatherIcon';
 import { Loader } from '../Loader/Loader';
+import { getSelectLangDescription } from '../../helpers/getSelectLangDescription';
 
 type Props = {
   data: Weather | null;
@@ -127,7 +128,9 @@ export const WeatherNow: React.FC<Props> = ({ data, error, isLoading }) => {
             <div className="weather-now__center-center">
               <div className="weather-now__icon weather-now__icon--main">
                 <WeatherIcon width={85} desc={data.info_params.description} />
-                <div className="weather-now__info--desc">{data.info_params.description.toUpperCase()}</div>
+                <div className="weather-now__info--desc">
+                  {getSelectLangDescription(data.info_params.description, lang).toUpperCase()}
+                </div>
               </div>
             </div>
             <div className="weather-now__center-right">

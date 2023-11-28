@@ -48,6 +48,10 @@ export const DayDetail: React.FC<Props> = ({ dayForecast, isLoading }) => {
     night: times.some(hour => hour.time === ('02:00:00' && '05:00:00')),
   };
 
+  const blankColumn = (
+    <td>-</td>
+  );
+
   return (
     <div className="day-detail">
       {!isLoading
@@ -94,26 +98,31 @@ export const DayDetail: React.FC<Props> = ({ dayForecast, isLoading }) => {
             </thead>
             <tbody className="day-detail__body">
               <tr className="day-detail__row day-detail__time">
+                {times.length % 2 !== 0 && blankColumn}
                 {times.map(hour => (
                   <td>{hour.time.split(':').slice(0, 2).join(':')}</td>
                 ))}
               </tr>
               <tr className="day-detail__row">
+                {times.length % 2 !== 0 && blankColumn}
                 {times.map(hour => (
                   <td>{`${Math.round(hour.main_params.temp)}°`}</td>
                 ))}
               </tr>
               <tr className="day-detail__row">
+                {times.length % 2 !== 0 && blankColumn}
                 {times.map(hour => (
                   <td>{`${Math.round(hour.main_params.feels_like)}°`}</td>
                 ))}
               </tr>
               <tr className="day-detail__row">
+                {times.length % 2 !== 0 && blankColumn}
                 {times.map(hour => (
                   <td>{`${hour.main_params.humidity}%`}</td>
                 ))}
               </tr>
               <tr className="day-detail__row">
+                {times.length % 2 !== 0 && blankColumn}
                 {times.map(hour => (
                   <td>{`${hour.wind_params.speed}`}</td>
                 ))}
